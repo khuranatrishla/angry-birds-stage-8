@@ -15,7 +15,7 @@ var score = 0;
 function preload() {
     getBackgroundImg();
 }
-
+ 
 function setup(){
     var canvas = createCanvas(1200,400);
     engine = Engine.create();
@@ -81,9 +81,9 @@ function draw(){
 }
 
 function mouseDragged(){
-    if (gameState!=="launched"){
+    //if (gameState!=="launched"){
         Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
-    }
+    //}
 }
 
 
@@ -93,9 +93,12 @@ function mouseReleased(){
 }
 
 function keyPressed(){
-    if(keyCode === 32){
-       // slingshot.attach(bird.body);
+    if(keyCode === 32 && bird.body.speed<1){ //ASCII 
+       bird.trajectory=[];
+       Matter.Body.setPosition(bird.body,{x:200,y:200});
+       slingshot.attach(bird.body);
     }
+    
 }
 
 async function getBackgroundImg(){
@@ -115,3 +118,19 @@ async function getBackgroundImg(){
     backgroundImg = loadImage(bg);
     console.log(backgroundImg);
 }
+
+/*
+CONSOLE - Ctrl + Shift + J
+
+1. Typos - misspelled variable/function
+2. Incorrect use of function - parameters/arguments
+3. Using variables outside their scope
+
+Global - Not defined inside any {..}
+Local - Defined inside a {..}, & are only accessible by that specific set of {..}
+
+Techniques: 
+1. Commenting - to increase the readability (big chunks/sections of code)
+2. Printing values of variables in the console - experimentation
+3. Writing messages in the console - to differentiate between different logged variables
+*/
